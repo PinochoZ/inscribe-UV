@@ -195,7 +195,40 @@ body.dark .search-bar input::placeholder {
   color: #bfc7d1;
 }
 
+/* ===== MENSAJE MATERIA AÑADIDA ===== */
+.mensaje {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
+.mensaje.visible {
+  opacity: 1;
+}
+
+.mensaje.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== HOVER BOTONES ===== */
+.btns button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btns button:hover {
+  background-color: #004aad; /* azul fuerte */
+  color: #ffffff;           /* letras blancas */
+}
   </style>
 </head>
 <body>
@@ -384,7 +417,21 @@ function agregarMateria(materia) {
   fila.children[index].innerText = horarioSeleccionado[materia].hora;
 
   document.getElementById('tablaHorario').appendChild(fila);
+  mostrarMensajeMateria();
+
 }
+
+function mostrarMensajeMateria() {
+  const mensaje = document.getElementById("mensaje-materia");
+  mensaje.classList.remove("oculto");
+  mensaje.classList.add("visible");
+
+  setTimeout(() => {
+    mensaje.classList.remove("visible");
+    mensaje.classList.add("oculto");
+  }, 2500);
+}
+
 
 function quitarMateria(materia) {
   const fila = document.getElementById(`fila-${materia}`);
@@ -429,6 +476,10 @@ function finalizarInscripcion() {
 <script src="../js/js.js"></script>
 <script src="../js/buscar.js"></script>
 
+<div id="mensaje-materia" class="mensaje oculto">
+  ✅ Materia añadida correctamente
+</div>
 
 </body>
 </html>
+
